@@ -24,7 +24,6 @@ int main(void) {
 	};
 	course[FIRSTX][FIRSTY] = car.letter;
 
-	//unsigned char input = '0';
 	//game
 	show_course(course);
 	while (!GetAsyncKeyState(VK_ESCAPE)) {
