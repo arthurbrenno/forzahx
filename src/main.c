@@ -2,12 +2,13 @@
 #include <conio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <winuser.h>
 #include "include/car.h"
 #include "include/config.h"
-
+#include "include/obstacles.h"
 
 void show_course(const char course[XDIST][YDIST]);
 void clear_screen(void);
@@ -15,7 +16,6 @@ void clear_screen(void);
 int main(void) {
 	
 	//Preparatives
-
 	char course[XDIST][YDIST];
 	memset(course, FILL, sizeof course);
 	Car car = {
@@ -25,6 +25,7 @@ int main(void) {
 	};
 	course[FIRSTX][FIRSTY] = car.letter;
 	//game
+	srand((unsigned int) time(NULL));
 	show_course(course);
 	while (!GetAsyncKeyState(VK_ESCAPE)) {
 		if (GetAsyncKeyState(VK_UP) && car.xpos != 0) {
@@ -47,7 +48,31 @@ int main(void) {
 			moveD(&car, course);
 			show_course(course);
 		}
+		else if (GetAsyncKeyState(VK_NUMPAD0)) {
+			clear_screen();
+			memset(course, ' ', sizeof course);
+			course[car.xpos][car.ypos] = CCHARACTER;
+			show_course(course);
+		}
+		else if (GetAsyncKeyState(VK_RIGHT) && car.ypos == YDIST - 1) {
+			course[car.xpos][car.ypos] = CARPATH;
+			car.ypos = 0;
+		}
+		else if (GetAsyncKeyState(VK_LEFT) && car.ypos == 0) {
+			course[car.xpos][car.ypos] = CARPATH;
+			car.ypos = YDIST - 1;
+		}
+		else if (GetAsyncKeyState(VK_UP) && car.xpos == 0) {
+			course[car.xpos][car.ypos] = CARPATH;
+			car.xpos = XDIST - 1;
+		}
+		else if (GetAsyncKeyState(VK_DOWN) && car.xpos == XDIST - 1) {
+			course[car.xpos][car.ypos] = CARPATH;
+			car.xpos = 0;
+		}
 		else {}
+		
+		//TODO: put enemies here
 		Sleep(TICK);
 	}
 	return 0;
