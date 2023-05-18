@@ -10,6 +10,7 @@
 
 
 void show_course(const char course[XDIST][YDIST]);
+void clear_screen(void);
 
 int main(void) {
 	
@@ -23,27 +24,26 @@ int main(void) {
 		.ypos = FIRSTY
 	};
 	course[FIRSTX][FIRSTY] = car.letter;
-
 	//game
 	show_course(course);
 	while (!GetAsyncKeyState(VK_ESCAPE)) {
 		if (GetAsyncKeyState(VK_UP) && car.xpos != 0) {
-			system("cls");
+			clear_screen();
 			moveW(&car, course);
 			show_course(course);
 		}
 		else if (GetAsyncKeyState(VK_DOWN) && car.xpos < XDIST - 1) {
-			system("cls");
+			clear_screen();
 			moveS(&car, course);
 			show_course(course);
 		}
 		else if (GetAsyncKeyState(VK_LEFT) && car.ypos != 0) {
-			system("cls");
+			clear_screen();
 			moveA(&car, course);
 			show_course(course);
 		}
 		else if (GetAsyncKeyState(VK_RIGHT) && car.ypos < YDIST - 1) {
-			system("cls");
+			clear_screen();
 			moveD(&car, course);
 			show_course(course);
 		}
@@ -69,3 +69,9 @@ void show_course(const char course[XDIST][YDIST]) {
 	puts("----------------------------------------------------------------------------------------------------------------------");
 }
 
+void clear_screen(void) {
+	COORD cursor_pos;
+	cursor_pos.X = 0;
+	cursor_pos.Y = 0;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor_pos);
+}

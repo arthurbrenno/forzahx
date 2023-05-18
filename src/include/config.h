@@ -7,6 +7,6 @@
 #define TICK 30            //ms
 #define FIRSTX 9           //carX0
 #define FIRSTY 0           //carY0
-#define CCHARACTER 'C'
+#define CCHARACTER 220
 
 #endif
