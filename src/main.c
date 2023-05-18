@@ -70,8 +70,6 @@ void show_course(const char course[XDIST][YDIST]) {
 }
 
 void clear_screen(void) {
-	COORD cursor_pos;
-	cursor_pos.X = 0;
-	cursor_pos.Y = 0;
+	COORD cursor_pos = {.X = 0, .Y = 0};
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor_pos);
 }
