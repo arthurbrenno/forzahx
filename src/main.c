@@ -15,19 +15,32 @@ void clear_screen(void);
 
 int main(void) {
 	
-	//Preparatives
 	char course[XDIST][YDIST];
 	memset(course, FILL, sizeof course);
+
 	Car car = {
 		.letter = CCHARACTER,
 		.xpos = FIRSTX,
 		.ypos = FIRSTY
 	};
+
 	course[FIRSTX][FIRSTY] = car.letter;
-	//game
-	srand((unsigned int) time(NULL));
+	
+	
+	srand((unsigned int) time((void *) 0));
 	show_course(course);
+	int wins = 0;
+	o_gen_vbarrier(course, rand() % XDIST);
+	
 	while (!GetAsyncKeyState(VK_ESCAPE)) {
+		if (course[car.xpos][car.ypos + 1] == OBSTACLE) {
+			wins = 0;
+			course[car.xpos][car.ypos] = FILL;
+			car.ypos = 0;
+		}
+		//this will determine if the barrier is going to be changed
+		int rand_barrier = rand() % 30;
+
 		if (GetAsyncKeyState(VK_UP) && car.xpos != 0) {
 			clear_screen();
 			moveW(&car, course);
@@ -48,36 +61,34 @@ int main(void) {
 			moveD(&car, course);
 			show_course(course);
 		}
-		else if (GetAsyncKeyState(VK_NUMPAD0)) {
-			clear_screen();
-			memset(course, ' ', sizeof course);
-			course[car.xpos][car.ypos] = CCHARACTER;
-			show_course(course);
-		}
 		else if (GetAsyncKeyState(VK_RIGHT) && car.ypos == YDIST - 1) {
 			course[car.xpos][car.ypos] = CARPATH;
 			car.ypos = 0;
-		}
-		else if (GetAsyncKeyState(VK_LEFT) && car.ypos == 0) {
-			course[car.xpos][car.ypos] = CARPATH;
-			car.ypos = YDIST - 1;
-		}
-		else if (GetAsyncKeyState(VK_UP) && car.xpos == 0) {
-			course[car.xpos][car.ypos] = CARPATH;
-			car.xpos = XDIST - 1;
-		}
-		else if (GetAsyncKeyState(VK_DOWN) && car.xpos == XDIST - 1) {
-			course[car.xpos][car.ypos] = CARPATH;
-			car.xpos = 0;
+			wins++;
+			system("cls");
+			printf("\nWINS: %d", wins);
+			Sleep(1200);
+			system("cls");
+			show_course(course);
 		}
 		else {}
 		
-		//TODO: put enemies here
+		//if the rand_barrier variable equals the magic number, then gen the barrier
+		if (rand_barrier == 7) {
+			o_gen_vbarrier(course, rand() % XDIST);
+		}
+
 		Sleep(TICK);
 	}
 	return 0;
 }
 
+/**
+ * Prints a 2D course.
+ *
+ * @param const course, won't be modified.
+ * @return void
+ */
 void show_course(const char course[XDIST][YDIST]) {
 	char row[YDIST * 3 + 1];
 	puts("----------------------------------------------------------------------------------------------------------------------");
@@ -94,6 +105,12 @@ void show_course(const char course[XDIST][YDIST]) {
 	puts("----------------------------------------------------------------------------------------------------------------------");
 }
 
+/**
+ * This sets the cursor at the top left corner.
+ *
+ * @param void.
+ * @return void
+ */
 void clear_screen(void) {
 	COORD cursor_pos = {.X = 0, .Y = 0};
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor_pos);
