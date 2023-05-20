@@ -4,8 +4,8 @@
 #include "config.h"
 
 typedef struct {
-	unsigned int xpos;     // 4 bytes
-	unsigned int ypos;     // 4 bytes
+	unsigned int xpos;				// 4 bytes
+	unsigned int ypos;				// 4 bytes
 	unsigned char letter;           // 1 byte
 	unsigned char _[3];             // 3 bytes padding
 } Car;
