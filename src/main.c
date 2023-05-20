@@ -71,13 +71,18 @@ int main(void) {
 			car.xpos = 0;
 		}
 		else {}
-		
-		//TODO: put enemies here
+
 		Sleep(TICK);
 	}
 	return 0;
 }
 
+/**
+ * Prints a 2D course.
+ *
+ * @param const course, won't be modified.
+ * @return void
+ */
 void show_course(const char course[XDIST][YDIST]) {
 	char row[YDIST * 3 + 1];
 	puts("----------------------------------------------------------------------------------------------------------------------");
@@ -94,6 +99,12 @@ void show_course(const char course[XDIST][YDIST]) {
 	puts("----------------------------------------------------------------------------------------------------------------------");
 }
 
+/**
+ * This sets the cursor at the top left corner.
+ *
+ * @param void.
+ * @return void
+ */
 void clear_screen(void) {
 	COORD cursor_pos = {.X = 0, .Y = 0};
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor_pos);
