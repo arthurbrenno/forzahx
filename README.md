@@ -12,7 +12,7 @@ https://github.com/arthurbrenno/forzahx/assets/64020210/ceed1abc-9810-45d1-b697-
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://media.discordapp.net/attachments/815753127537410102/1111663959469207712/image.png?width=806&amp;height=318" alt="project-screenshot" width="590" height="450/">
+<img src="https://media.discordapp.net/attachments/815753127537410102/1111663959469207712/image.png?width=806&amp;height=318" alt="project-screenshot" width="590" height="auto">
 
 
   
