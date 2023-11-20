@@ -27,6 +27,6 @@ Here're some of the project's best features:
 
 <h2>🛠️ Installation Steps:</h2>
 
-<p>1. Change to features branch <-- IMPORTANT! (main branch is just a playground, not the game) </p> 
+<p>1. Change to features branch <-- VERY IMPORTANT! (main branch is just a playground, not the game) </p> 
 <p>2. Download zip file</p>
 <p>3. Go to ForzaHX/x64/Debug/ForzaHX.exe
